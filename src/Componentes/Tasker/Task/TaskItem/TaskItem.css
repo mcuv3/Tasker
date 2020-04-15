@@ -1,0 +1,9 @@
+.Task {
+  margin-top: 2em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Marked {
+  text-decoration: line-through;
+}

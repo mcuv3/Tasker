@@ -1,0 +1,9 @@
+.tasks {
+  margin: auto;
+  padding: 2em 1em;
+  height: 100hv;
+  width: 50%;
+  text-align: center;
+  border: solid 2px #eee;
+  box-shadow: 0 2px 2px #ccc;
+}
