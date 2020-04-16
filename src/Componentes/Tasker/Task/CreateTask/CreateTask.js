@@ -31,7 +31,7 @@ const CreateTask = (props) => {
         <p>Hora (Opcional)</p>
         <input type="time" />
       </div>
-      <button onClick={}>Agregar</button>
+      <button>Agregar</button>
     </form>
   );
 };
