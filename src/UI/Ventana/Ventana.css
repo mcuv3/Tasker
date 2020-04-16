@@ -2,12 +2,12 @@
   background-color: white;
   z-index: 500;
   position: fixed;
-  width: 70%;
+  width: 400px;
   border: 1px solid #ccc;
   box-shadow: 1px 1px 1px black;
-  padding: 3em;
-  left: 15%;
-  top: 35%;
+  padding: 2em;
+  left: 31%;
+  top: 30%;
   box-sizing: border-box;
   transition: all 0.3s ease-out;
 }

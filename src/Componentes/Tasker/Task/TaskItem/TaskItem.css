@@ -1,7 +1,15 @@
 .Task {
   margin-top: 2em;
+  padding: 0 10px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 1px #eee;
+  transition: box-shadow 4s;
+}
+.Task:hover {
+  box-shadow: 0 4px 4px #eee;
 }
 
 .Marked {

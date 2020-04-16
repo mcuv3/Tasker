@@ -4,6 +4,7 @@ import Tasks from "./Task/Tasks";
 import Ventana from "../../UI/Ventana/Ventana";
 import UpdateTask from "./UpdateTask/UpdateTask";
 import ConfigTasker from "./configTasker/ConfigTasker";
+import axios from "../../axios-tasker";
 
 export class Tasker extends Component {
   state = {
@@ -26,6 +27,7 @@ export class Tasker extends Component {
     ],
     wantUpdate: false,
     taskToUpdate: null,
+    date: new Date(),
   };
   markHandler = (id) => {
     this.setState({
@@ -64,9 +66,23 @@ export class Tasker extends Component {
       taskToUpdate: null,
     });
   };
+
+  cambiarFecha = (fecha) => {
+    axios
+      .get("tasks.json")
+      .then((response) => {
+        //const tasks = response.data.filter((task) => {});
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    this.setState({ date: fecha });
+  };
+
   render() {
     let update = null;
-
+    //  console.log(this.state.date);
     if (this.state.wantUpdate)
       update = (
         <UpdateTask
@@ -84,7 +100,7 @@ export class Tasker extends Component {
         >
           {update}
         </Ventana>
-        <ConfigTasker />
+        <ConfigTasker updateDate={this.cambiarFecha} />
         <Tasks
           tasks={this.state.tasks}
           mark={this.markHandler}
