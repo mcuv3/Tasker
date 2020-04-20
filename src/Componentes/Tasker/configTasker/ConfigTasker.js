@@ -17,7 +17,8 @@ class ConfigTasker extends Component {
     this.props.updateDate(this.state.date);
     this.setState({ show: false });
   };
-  ocultarCreate = () => {
+  ocultarCreate = (e) => {
+    if (e) this.props.reUpdate();
     this.setState({ showCreate: false });
   };
   openCreate = () => {
@@ -39,7 +40,10 @@ class ConfigTasker extends Component {
           mostrar={this.state.showCreate}
           cerrarVentana={this.ocultarCreate}
         >
-          <CreateTask />
+          <CreateTask
+            cerrarVentana={() => this.ocultarCreate(true)}
+            update={false}
+          />
         </Ventana>
         <p onClick={this.openCalendar} className={classes.Date}>
           {fecha}

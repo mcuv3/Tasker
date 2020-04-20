@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Botones from "../../../UI/Buttoms/TaskBtn/Buttoms";
+
+import Boton from "../../../UI/Buttoms/Button";
 
 class UpdateTask extends Component {
   constructor(props) {
@@ -15,22 +16,29 @@ class UpdateTask extends Component {
   };
   render() {
     let mostrar = null;
-    if (this.props.mostrar)
-      mostrar = (
-        <div>
-          <p>{this.state.task.id}</p>
-          <input
-            type="text"
-            value={this.state.task.title}
-            onChange={(event) => this.updateTask(event)}
-          ></input>
 
-          <Botones
-            delete={() => this.props.delete(this.state.task.id)}
-            update={() => this.props.updateTask(this.state.task)}
-          />
-        </div>
-      );
+    mostrar = (
+      <div>
+        <p>{this.state.task.id}</p>
+        <input
+          type="text"
+          value={this.state.task.task}
+          onChange={(event) => this.updateTask(event)}
+        ></input>
+        <Boton
+          estilo="Delete"
+          clicked={() => this.props.delete(this.state.task.id)}
+        >
+          Eliminar
+        </Boton>
+        <Boton
+          estilo="Updated"
+          clicked={() => this.props.updateTask(this.state.task)}
+        >
+          Actualizar
+        </Boton>
+      </div>
+    );
     return mostrar;
   }
 }

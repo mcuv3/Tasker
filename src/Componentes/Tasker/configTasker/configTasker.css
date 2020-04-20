@@ -1,3 +1,6 @@
 .Date {
-  text-decoration: underline;
+  text-decoration: italic;
+  background-color: #ccc;
+  margin: 0 0;
+  height: 40px;
 }

@@ -1,15 +1,25 @@
 import React from "react";
 import classes from "./TaskItem.css";
-import Buttoms from "../../../../UI/Buttoms/TaskBtn/Buttoms";
+
+import Boton from "../../../../UI/Buttoms/Button";
 const TaskItem = (props) => {
-  let isChecked = null;
-  if (props.marked) isChecked = classes.Marked;
+  let isChecked = [classes.tarea];
+  if (props.marked) isChecked.push(classes.Marked);
 
   return (
     <div className={classes.Task}>
-      <input type="checkbox" onClick={props.Checked} />
-      <p className={isChecked}>{props.title}</p>
-      <Buttoms delete={props.delete} update={props.update} />
+      <div className={classes.TaskItem}>
+        <input type="checkbox" onChange={props.Checked} checked={props.mark} />
+        <p className={isChecked.join(" ")} onClick={props.update}>
+          {props.title}
+        </p>
+      </div>
+
+      <div className={classes.Botones}>
+        <Boton estilo="Delete" clicked={props.delete}>
+          <div className={classes.del}>+</div>
+        </Boton>
+      </div>
     </div>
   );
 };

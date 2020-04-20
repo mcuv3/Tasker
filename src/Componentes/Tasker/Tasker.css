@@ -1,7 +1,7 @@
 .tasks {
   margin: auto;
-  padding: 2em 1em;
-  height: 100hv;
+  box-sizing: border-box;
+  height: 80vh;
   width: 50%;
   text-align: center;
   border: solid 2px #eee;

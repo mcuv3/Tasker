@@ -2,47 +2,58 @@ import React, { Component } from "react";
 import classes from "./Tasker.css";
 import Tasks from "./Task/Tasks";
 import Ventana from "../../UI/Ventana/Ventana";
-import UpdateTask from "./UpdateTask/UpdateTask";
+//import UpdateTask from "./UpdateTask/UpdateTask";
 import ConfigTasker from "./configTasker/ConfigTasker";
 import axios from "../../axios-tasker";
+import UpdateTask from "../Tasker/Task/CreateTask/CreateTask";
 
 export class Tasker extends Component {
   state = {
-    tasks: [
-      {
-        id: 1,
-        title: "Esto es una Prueba",
-        mark: false,
-      },
-      {
-        id: 2,
-        title: "Esto es una Prueba 1",
-        mark: false,
-      },
-      {
-        id: 3,
-        title: "Esto es una Prueba 1",
-        mark: false,
-      },
-    ],
+    tasks: [],
     wantUpdate: false,
     taskToUpdate: null,
     date: new Date(),
+    reRender: false,
   };
+
+  componentDidMount() {
+    this.reRender();
+  }
+  reRender = () => {
+    axios
+      .get("tasks.json")
+      .then((response) => {
+        let tasks = [];
+        for (let key in response.data) {
+          tasks.push({ id: key, ...response.data[key] });
+        }
+        this.setState({ tasks });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   markHandler = (id) => {
-    this.setState({
-      tasks: this.state.tasks.map((task) => {
-        if (task.id === id) task.mark = !task.mark;
-        return task;
-      }),
-    });
+    const tasks = { ...this.state.tasks.filter((task) => task.id === id) };
+    const value = !tasks[0].mark;
+    axios
+      .put("/tasks/" + id + "/mark.json", value)
+      .then((response) => {
+        this.reRender();
+      })
+      .catch((error) => console.log(error));
   };
+
   deleteHandler = (id) => {
-    this.setState({
-      tasks: this.state.tasks.filter((task) => task.id !== id),
-      wantUpdate: false,
-      taskToUpdate: null,
-    });
+    axios
+      .delete("/tasks/" + id + ".json")
+      .then((response) => {
+        this.reRender();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   updateHandler = (id) => {
     this.setState({
@@ -50,14 +61,20 @@ export class Tasker extends Component {
       taskToUpdate: this.state.tasks.filter((task) => task.id === id),
     });
   };
+
   updateTaskHandler = (taskUpdated) => {
-    this.setState({
-      tasks: this.state.tasks.map((task) => {
-        if (taskUpdated.id === task.id) task = taskUpdated;
-        return task;
-      }),
-      wantUpdate: false,
-      taskToUpdate: null,
+    const token = this.state.taskToUpdate[0].id;
+    const task = {
+      id: this.state.taskToUpdate[0].id,
+      task: taskUpdated.task.value,
+      hora: taskUpdated.hora.value,
+      seccion: taskUpdated.seccion.value,
+      prioridad: taskUpdated.prioridad.value,
+    };
+    console.log(task);
+    axios.put("/tasks/" + token + ".json", task).then((res) => {
+      this.setState({ wantUpdate: false, taskToUpdate: null });
+      this.reRender();
     });
   };
   cerrarVentana = () => {
@@ -68,30 +85,40 @@ export class Tasker extends Component {
   };
 
   cambiarFecha = (fecha) => {
-    axios
-      .get("tasks.json")
-      .then((response) => {
-        //const tasks = response.data.filter((task) => {});
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    this.setState({ date: fecha });
+    // axios
+    //   .get("tasks.json")
+    //   .then((response) => {
+    //     //const tasks = response.data.filter((task) => {});
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // this.setState({ date: fecha });
   };
 
   render() {
     let update = null;
     //  console.log(this.state.date);
-    if (this.state.wantUpdate)
+    if (this.state.wantUpdate) {
       update = (
         <UpdateTask
-          mostrar={this.state.wantUpdate}
+          cerrarVentana={() => this.ocultarCreate(true)}
+          update={true}
+          updateTask={this.updateTaskHandler}
           task={this.state.taskToUpdate}
           delete={this.deleteHandler}
-          updateTask={this.updateTaskHandler}
         />
       );
+      // update = (
+      //   <UpdateTask
+      //     task={this.state.taskToUpdate}
+      //     delete={this.deleteHandler}
+      //     updateTask={this.updateTaskHandler}
+      //   />
+      // );
+    }
+
     return (
       <div className={classes.tasks}>
         <Ventana
@@ -100,7 +127,7 @@ export class Tasker extends Component {
         >
           {update}
         </Ventana>
-        <ConfigTasker updateDate={this.cambiarFecha} />
+        <ConfigTasker updateDate={this.cambiarFecha} reUpdate={this.reRender} />
         <Tasks
           tasks={this.state.tasks}
           mark={this.markHandler}

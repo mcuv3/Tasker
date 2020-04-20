@@ -6,7 +6,8 @@ const Tasks = (props) => {
     return (
       <Task
         key={task.id}
-        title={task.title}
+        title={task.task}
+        mark={task.mark}
         Checked={() => props.mark(task.id)}
         delete={() => props.delete(task.id)}
         update={() => props.update(task.id)}
