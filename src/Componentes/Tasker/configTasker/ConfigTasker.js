@@ -38,6 +38,13 @@ class ConfigTasker extends Component {
   openCreate = () => {
     this.setState({ showCreate: true });
   };
+  btnNextPrev = (flag) => {
+    let fecha = new Date(this.state.date);
+    flag
+      ? fecha.setDate(fecha.getDate() + 1)
+      : fecha.setDate(fecha.getDate() - 1);
+    this.onChange(fecha);
+  };
 
   render() {
     let fecha = this.state.date.toLocaleDateString();
@@ -47,8 +54,13 @@ class ConfigTasker extends Component {
         <Ventana
           mostrar={this.state.show}
           cerrarVentana={this.ocultarCalendario}
+          calendario
         >
-          <Calendar onChange={this.onChange} value={this.state.date} />
+          <Calendar
+            onChange={this.onChange}
+            value={this.state.date}
+            className={classes.Calendario}
+          />
         </Ventana>
         <Ventana
           mostrar={this.state.showCreate}
@@ -61,11 +73,21 @@ class ConfigTasker extends Component {
           />
         </Ventana>
         <div className={classes.Configuracion}>
-          <div className={classes.newDate}>{"<"}</div>
+          <div
+            className={classes.newDate}
+            onClick={() => this.btnNextPrev(false)}
+          >
+            {"<"}
+          </div>
           <p onClick={this.openCalendar} className={classes.Date}>
             {fecha}
           </p>
-          <div className={classes.newDate}>{">"}</div>
+          <div
+            className={classes.newDate}
+            onClick={() => this.btnNextPrev(true)}
+          >
+            {">"}
+          </div>
         </div>
         <button onClick={this.openCreate}>Agregar</button>
       </React.Fragment>

@@ -26,7 +26,7 @@ class CreateTask extends Component {
           config: {
             required: true,
             options: [
-              { value: "default", tag: "Área" },
+              { value: "", tag: "Área" },
               { value: "escuela", tag: "Escuela" },
               { value: "trabajo", tag: "Trabajo" },
               { value: "personal", tag: "Personal" },
@@ -42,19 +42,16 @@ class CreateTask extends Component {
             required: true,
             options: [
               {
-                value: "default",
+                value: "",
                 tag: "Nivel de Importancia",
-                disabled: true,
-                selected: true,
-                hidden: true,
               },
-              { value: "urgente", tag: "Urgente" },
-              { value: "muyimportante", tag: "Muy Importante" },
-              { value: "importante", tag: "Importante" },
-              { value: "normal", tag: "Normal" },
+              { value: 1, tag: "Urgente" },
+              { value: 2, tag: "Muy Importante" },
+              { value: 3, tag: "Importante" },
+              { value: 4, tag: "Normal" },
             ],
           },
-          value: this.props.update ? this.props.task[0].prioridad : "",
+          value: this.props.update ? this.props.task[0].prioridad : 0,
           valid: true,
         },
         hora: {
@@ -79,6 +76,7 @@ class CreateTask extends Component {
     }
     task["mark"] = false;
     this.setState({ loar: true });
+
     axios
       .post("/tasks/" + this.props.date + ".json", task)
       .then((req) => {
@@ -88,6 +86,17 @@ class CreateTask extends Component {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  validarForm = () => {
+    const task = {};
+    for (let key in this.state.form) {
+      let valor = { ...this.state.form[key] };
+      task[key] = valor.value;
+    }
+    task["mark"] = false;
+
+    console.log(task);
   };
 
   changeInput = (event, tag) => {
@@ -106,14 +115,11 @@ class CreateTask extends Component {
     const elementoForm = [];
 
     let botones = this.props.update ? (
-      <Boton
-        estilo="Submit"
-        clicked={() => this.props.updateTask(this.state.form)}
-      >
+      <Boton estilo="Submit" type="submit">
         Actualizar
       </Boton>
     ) : (
-      <Boton estilo="Submit" clicked={this.createTask}>
+      <Boton estilo="Submit" type="submit">
         Agregar
       </Boton>
     );

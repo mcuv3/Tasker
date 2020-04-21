@@ -9,16 +9,16 @@ const TaskItem = (props) => {
   let colorImportance = [classes.Task];
 
   switch (props.prioridad) {
-    case "urgente":
+    case "1":
       colorImportance.push(classes.Urgente);
       break;
-    case "muyimportante":
+    case "2":
       colorImportance.push(classes.MuyImportante);
       break;
-    case "importante":
+    case "3":
       colorImportance.push(classes.Importante);
       break;
-    case "normal":
+    case "4":
       colorImportance.push(classes.Normal);
       break;
     default:

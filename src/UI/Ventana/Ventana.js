@@ -14,6 +14,9 @@ export class Ventana extends Component {
                 ? "translate(0)"
                 : "translateY(-100vh)",
               opacity: this.props.mostrar ? "1" : "0",
+              backgroundColor: this.props.calendario ? "#00000000" : "white",
+              border: this.props.calendario ? "#00000000" : "1px solid #ccc",
+              boxShadow: this.props.calendario ? "none" : "1px 1px 1px black",
             }}
           >
             <div className={classes.out} onClick={this.props.cerrarVentana}>

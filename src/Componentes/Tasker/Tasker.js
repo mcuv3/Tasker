@@ -13,10 +13,10 @@ export class Tasker extends Component {
     wantUpdate: false,
     taskToUpdate: null,
     date: new Date(),
-    reRender: false,
     realDate: "",
     loading: false,
     noTasks: false,
+    markFlag: false,
   };
 
   componentDidMount() {
@@ -52,7 +52,7 @@ export class Tasker extends Component {
     axios
       .get("/tasks/" + realDate + ".json")
       .then((response) => {
-        this.setState({ realDate, loading: false });
+        this.setState({ realDate, loading: false, markFlag: false });
         let tasks = [];
         for (let key in response.data) {
           tasks.push({ id: key, ...response.data[key] });
@@ -67,6 +67,7 @@ export class Tasker extends Component {
   };
 
   markHandler = (id) => {
+    this.setState({ markFlag: true });
     const tasks = { ...this.state.tasks.filter((task) => task.id === id) };
     const value = !tasks[0].mark;
     axios
@@ -103,7 +104,6 @@ export class Tasker extends Component {
       seccion: taskUpdated.seccion.value,
       prioridad: taskUpdated.prioridad.value,
     };
-    console.log(this.state.date);
     axios
       .put("/tasks/" + this.state.realDate + "/" + token + ".json", task)
       .then((res) => {
@@ -141,12 +141,12 @@ export class Tasker extends Component {
         <Spinner />
       </div>
     );
-    if (!this.state.loading)
+
+    if (!this.state.loading || this.state.markFlag)
       if (this.state.noTasks)
         tasks = (
           <div className={classes.Spinner}>
-            {" "}
-            <p>Add Some Tasks ....</p>{" "}
+            <p>Add Some Tasks ....</p>
           </div>
         );
       else

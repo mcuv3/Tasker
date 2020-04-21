@@ -7,6 +7,7 @@ const Button = (props) => {
     <button
       onClick={props.clicked}
       className={[classes[props.estilo]].join(" ")}
+      type={props.type}
     >
       {props.children}
     </button>

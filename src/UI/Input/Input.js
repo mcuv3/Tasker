@@ -30,10 +30,11 @@ const Input = (props) => {
           className={[classes.Input, classes.Seleccion].join(" ")}
           value={props.value}
           onChange={props.change}
+          {...props.config}
         >
           {props.config.options.map((opt) =>
-            opt.value === "default" ? (
-              <option value="" key={opt.tag} disabled selected hidden>
+            opt.value === "" ? (
+              <option value="" key={opt.tag} hidden>
                 {opt.tag}
               </option>
             ) : (
