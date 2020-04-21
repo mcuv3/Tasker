@@ -8,6 +8,7 @@ const Tasks = (props) => {
         key={task.id}
         title={task.task}
         mark={task.mark}
+        prioridad={task.prioridad}
         Checked={() => props.mark(task.id)}
         delete={() => props.delete(task.id)}
         update={() => props.update(task.id)}

@@ -2,4 +2,25 @@
   margin-top: 10px;
   font-family: inherit;
   padding: 5px 8px;
+  width: 350px;
+  height: 3em;
+  transition: transform ease 0.25s;
+}
+
+.Input:hover {
+  transform: scale(1.025);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.404);
+}
+.Hora {
+  width: 6em;
+  height: 1em;
+  position: relative;
+  left: 36%;
+}
+.Seleccion {
+  width: 368px;
+}
+.Area {
+  resize: none;
+  height: 8em;
 }

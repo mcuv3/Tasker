@@ -7,7 +7,7 @@ const Input = (props) => {
     case "input":
       inputDisplay = (
         <input
-          className={classes.Input}
+          className={[classes.Input, classes.Hora].join(" ")}
           {...props.config}
           value={props.value}
           onChange={props.change}
@@ -17,7 +17,7 @@ const Input = (props) => {
     case "textarea":
       inputDisplay = (
         <textarea
-          className={classes.Input}
+          className={[classes.Input, classes.Area].join(" ")}
           {...props.config}
           value={props.value}
           onChange={props.change}
@@ -27,7 +27,7 @@ const Input = (props) => {
     case "select":
       inputDisplay = (
         <select
-          className={classes.Input}
+          className={[classes.Input, classes.Seleccion].join(" ")}
           value={props.value}
           onChange={props.change}
         >

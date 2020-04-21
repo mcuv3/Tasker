@@ -61,7 +61,7 @@ class CreateTask extends Component {
           tag: "input",
           config: {
             required: true,
-            type: "date",
+            type: "time",
           },
           value: this.props.update ? this.props.task[0].hora : "",
           valid: false,
@@ -69,7 +69,6 @@ class CreateTask extends Component {
       },
       loar: false,
     };
-    //console.log(this.props.task[0].task);
   }
 
   createTask = () => {
@@ -81,7 +80,7 @@ class CreateTask extends Component {
     task["mark"] = false;
     this.setState({ loar: true });
     axios
-      .post("/tasks.json", task)
+      .post("/tasks/" + this.props.date + ".json", task)
       .then((req) => {
         this.setState({ loar: false });
         this.props.cerrarVentana();

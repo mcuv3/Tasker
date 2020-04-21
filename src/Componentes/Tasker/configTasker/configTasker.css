@@ -1,6 +1,38 @@
 .Date {
   text-decoration: italic;
-  background-color: #ccc;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.5em;
   margin: 0 0;
   height: 40px;
+}
+
+.Configuracion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(224, 224, 224, 0.856);
+  box-sizing: border-box;
+  height: 3em;
+}
+.Configuracion > p {
+  transition: ease 0.5s transform;
+}
+
+.Configuracion > p:hover {
+  transform: scale(1.07);
+}
+.newDate {
+  position: relative;
+  height: 100%;
+  margin: 5px;
+  font-size: 2em;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+  transition: ease 0.25s transform;
+}
+.newDate:hover {
+  color: #1312127c;
+  transform: scale(1.5);
 }

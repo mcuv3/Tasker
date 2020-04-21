@@ -9,12 +9,26 @@ class ConfigTasker extends Component {
     date: new Date(),
     show: false,
     showCreate: false,
+    formatDate: "",
   };
+  componentDidMount() {
+    this.onChange(this.state.date);
+  }
 
-  onChange = (date) => this.setState({ date });
+  onChange = (date) => {
+    const realDate =
+      (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
+      "" +
+      (date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()) +
+      "" +
+      date.getFullYear();
+
+    this.setState({ date, formatDate: realDate });
+    this.props.updateDate(date);
+  };
   openCalendar = () => this.setState({ show: true });
+
   ocultarCalendario = () => {
-    this.props.updateDate(this.state.date);
     this.setState({ show: false });
   };
   ocultarCreate = (e) => {
@@ -43,11 +57,16 @@ class ConfigTasker extends Component {
           <CreateTask
             cerrarVentana={() => this.ocultarCreate(true)}
             update={false}
+            date={this.state.formatDate}
           />
         </Ventana>
-        <p onClick={this.openCalendar} className={classes.Date}>
-          {fecha}
-        </p>
+        <div className={classes.Configuracion}>
+          <div className={classes.newDate}>{"<"}</div>
+          <p onClick={this.openCalendar} className={classes.Date}>
+            {fecha}
+          </p>
+          <div className={classes.newDate}>{">"}</div>
+        </div>
         <button onClick={this.openCreate}>Agregar</button>
       </React.Fragment>
     );

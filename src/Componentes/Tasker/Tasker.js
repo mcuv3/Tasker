@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import classes from "./Tasker.css";
 import Tasks from "./Task/Tasks";
 import Ventana from "../../UI/Ventana/Ventana";
-//import UpdateTask from "./UpdateTask/UpdateTask";
+import Spinner from "../../UI/Spinner/Spinner";
 import ConfigTasker from "./configTasker/ConfigTasker";
 import axios from "../../axios-tasker";
 import UpdateTask from "../Tasker/Task/CreateTask/CreateTask";
@@ -14,20 +14,52 @@ export class Tasker extends Component {
     taskToUpdate: null,
     date: new Date(),
     reRender: false,
+    realDate: "",
+    loading: false,
+    noTasks: false,
   };
 
   componentDidMount() {
     this.reRender();
   }
-  reRender = () => {
+
+  componentDidUpdate() {
+    //this.reRender();
+  }
+  reRender = (date) => {
+    let realDate = "";
+
+    if (date) {
+      realDate =
+        (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
+        "" +
+        (date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()) +
+        "" +
+        date.getFullYear();
+    } else {
+      realDate =
+        (this.state.date.getDate() < 10
+          ? "0" + this.state.date.getDate()
+          : this.state.date.getDate()) +
+        "" +
+        (this.state.date.getMonth() < 10
+          ? "0" + this.state.date.getMonth()
+          : this.state.date.getMonth()) +
+        "" +
+        this.state.date.getFullYear();
+    }
+    this.setState({ loading: true });
     axios
-      .get("tasks.json")
+      .get("/tasks/" + realDate + ".json")
       .then((response) => {
+        this.setState({ realDate, loading: false });
         let tasks = [];
         for (let key in response.data) {
           tasks.push({ id: key, ...response.data[key] });
         }
-        this.setState({ tasks });
+
+        if (tasks.length === 0) this.setState({ tasks, noTasks: true });
+        else this.setState({ tasks, noTasks: false });
       })
       .catch((error) => {
         console.log(error);
@@ -38,7 +70,7 @@ export class Tasker extends Component {
     const tasks = { ...this.state.tasks.filter((task) => task.id === id) };
     const value = !tasks[0].mark;
     axios
-      .put("/tasks/" + id + "/mark.json", value)
+      .put("/tasks/" + this.state.realDate + "/" + id + "/mark.json", value)
       .then((response) => {
         this.reRender();
       })
@@ -47,7 +79,7 @@ export class Tasker extends Component {
 
   deleteHandler = (id) => {
     axios
-      .delete("/tasks/" + id + ".json")
+      .delete("/tasks/" + this.state.realDate + "/" + id + ".json")
       .then((response) => {
         this.reRender();
       })
@@ -71,11 +103,13 @@ export class Tasker extends Component {
       seccion: taskUpdated.seccion.value,
       prioridad: taskUpdated.prioridad.value,
     };
-    console.log(task);
-    axios.put("/tasks/" + token + ".json", task).then((res) => {
-      this.setState({ wantUpdate: false, taskToUpdate: null });
-      this.reRender();
-    });
+    console.log(this.state.date);
+    axios
+      .put("/tasks/" + this.state.realDate + "/" + token + ".json", task)
+      .then((res) => {
+        this.setState({ wantUpdate: false, taskToUpdate: null });
+        this.reRender();
+      });
   };
   cerrarVentana = () => {
     this.setState({
@@ -85,21 +119,12 @@ export class Tasker extends Component {
   };
 
   cambiarFecha = (fecha) => {
-    // axios
-    //   .get("tasks.json")
-    //   .then((response) => {
-    //     //const tasks = response.data.filter((task) => {});
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // this.setState({ date: fecha });
+    this.setState({ date: fecha });
+    this.reRender(fecha);
   };
 
   render() {
     let update = null;
-    //  console.log(this.state.date);
     if (this.state.wantUpdate) {
       update = (
         <UpdateTask
@@ -110,14 +135,29 @@ export class Tasker extends Component {
           delete={this.deleteHandler}
         />
       );
-      // update = (
-      //   <UpdateTask
-      //     task={this.state.taskToUpdate}
-      //     delete={this.deleteHandler}
-      //     updateTask={this.updateTaskHandler}
-      //   />
-      // );
     }
+    let tasks = (
+      <div className={classes.Spinner}>
+        <Spinner />
+      </div>
+    );
+    if (!this.state.loading)
+      if (this.state.noTasks)
+        tasks = (
+          <div className={classes.Spinner}>
+            {" "}
+            <p>Add Some Tasks ....</p>{" "}
+          </div>
+        );
+      else
+        tasks = (
+          <Tasks
+            tasks={this.state.tasks}
+            mark={this.markHandler}
+            delete={this.deleteHandler}
+            update={this.updateHandler}
+          />
+        );
 
     return (
       <div className={classes.tasks}>
@@ -128,12 +168,8 @@ export class Tasker extends Component {
           {update}
         </Ventana>
         <ConfigTasker updateDate={this.cambiarFecha} reUpdate={this.reRender} />
-        <Tasks
-          tasks={this.state.tasks}
-          mark={this.markHandler}
-          delete={this.deleteHandler}
-          update={this.updateHandler}
-        />
+
+        {tasks}
       </div>
     );
   }
