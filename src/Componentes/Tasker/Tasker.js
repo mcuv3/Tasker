@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import classes from "./Tasker.css";
-import Tasks from "./Task/Tasks";
 import Ventana from "../../UI/Ventana/Ventana";
 import Spinner from "../../UI/Spinner/Spinner";
 import ConfigTasker from "./configTasker/ConfigTasker";
 import axios from "../../axios-tasker";
 import UpdateTask from "../Tasker/Task/CreateTask/CreateTask";
+import TasksSeccion from "./Task/TaskSeccion/TaskSeccion";
 
 export class Tasker extends Component {
   state = {
@@ -23,9 +23,6 @@ export class Tasker extends Component {
     this.reRender();
   }
 
-  componentDidUpdate() {
-    //this.reRender();
-  }
   reRender = (date) => {
     let realDate = "";
 
@@ -53,34 +50,57 @@ export class Tasker extends Component {
       .get("/tasks/" + realDate + ".json")
       .then((response) => {
         this.setState({ realDate, loading: false, markFlag: false });
-        let tasks = [];
+        let secciones = [];
+        let tareas = [];
         for (let key in response.data) {
-          tasks.push({ id: key, ...response.data[key] });
+          for (let llave in response.data[key]) {
+            const task = response.data[key];
+            tareas.push({
+              id: llave,
+              ...task[llave],
+            });
+          }
+          secciones.push({ seccion: key, tareas: tareas });
+          tareas = [];
         }
-
-        if (tasks.length === 0) this.setState({ tasks, noTasks: true });
-        else this.setState({ tasks, noTasks: false });
+        if (secciones.length === 0)
+          this.setState({ tasks: secciones, noTasks: true });
+        else this.setState({ tasks: secciones, noTasks: false });
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  markHandler = (id) => {
+  markHandler = (id, seccion) => {
     this.setState({ markFlag: true });
-    const tasks = { ...this.state.tasks.filter((task) => task.id === id) };
+    const index = this.state.tasks.findIndex((e) => e.seccion === seccion);
+    const tasks = {
+      ...this.state.tasks[index].tareas.filter((task) => task.id === id),
+    };
     const value = !tasks[0].mark;
     axios
-      .put("/tasks/" + this.state.realDate + "/" + id + "/mark.json", value)
+      .put(
+        "/tasks/" +
+          this.state.realDate +
+          "/" +
+          seccion +
+          "/" +
+          id +
+          "/mark.json",
+        value
+      )
       .then((response) => {
         this.reRender();
       })
       .catch((error) => console.log(error));
   };
 
-  deleteHandler = (id) => {
+  deleteHandler = (id, seccion) => {
     axios
-      .delete("/tasks/" + this.state.realDate + "/" + id + ".json")
+      .delete(
+        "/tasks/" + this.state.realDate + "/" + seccion + "/" + id + ".json"
+      )
       .then((response) => {
         this.reRender();
       })
@@ -88,10 +108,14 @@ export class Tasker extends Component {
         console.log(error);
       });
   };
-  updateHandler = (id) => {
+  updateHandler = (id, seccion) => {
+    const index = this.state.tasks.findIndex((e) => e.seccion === seccion);
     this.setState({
       wantUpdate: true,
-      taskToUpdate: this.state.tasks.filter((task) => task.id === id),
+      taskToUpdate: {
+        ...this.state.tasks[index].tareas.filter((task) => task.id === id),
+        seccion,
+      },
     });
   };
 
@@ -101,14 +125,35 @@ export class Tasker extends Component {
       id: this.state.taskToUpdate[0].id,
       task: taskUpdated.task.value,
       hora: taskUpdated.hora.value,
-      seccion: taskUpdated.seccion.value,
       prioridad: taskUpdated.prioridad.value,
     };
     axios
-      .put("/tasks/" + this.state.realDate + "/" + token + ".json", task)
+      .put(
+        "/tasks/" +
+          this.state.realDate +
+          "/" +
+          taskUpdated.seccion.value +
+          "/" +
+          token +
+          ".json",
+        task
+      )
       .then((res) => {
-        this.setState({ wantUpdate: false, taskToUpdate: null });
-        this.reRender();
+        if (taskUpdated.seccion.value !== this.state.taskToUpdate.seccion)
+          axios
+            .delete(
+              "/tasks/" +
+                this.state.realDate +
+                "/" +
+                this.state.taskToUpdate.seccion +
+                "/" +
+                token +
+                ".json"
+            )
+            .then((res) => {
+              this.setState({ wantUpdate: false, taskToUpdate: null });
+              this.reRender();
+            });
       });
   };
   cerrarVentana = () => {
@@ -151,8 +196,8 @@ export class Tasker extends Component {
         );
       else
         tasks = (
-          <Tasks
-            tasks={this.state.tasks}
+          <TasksSeccion
+            secciones={this.state.tasks}
             mark={this.markHandler}
             delete={this.deleteHandler}
             update={this.updateHandler}

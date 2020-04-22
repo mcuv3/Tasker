@@ -33,7 +33,7 @@ class CreateTask extends Component {
               { value: "social", tag: "Social" },
             ],
           },
-          value: this.props.update ? this.props.task[0].seccion : "",
+          value: this.props.update ? this.props.task.seccion : "",
           valid: true,
         },
         prioridad: {
@@ -70,15 +70,18 @@ class CreateTask extends Component {
 
   createTask = () => {
     const task = {};
+    let seccion;
     for (let key in this.state.form) {
       let valor = { ...this.state.form[key] };
-      task[key] = valor.value;
+      key === "seccion" ? (seccion = valor.value) : (task[key] = valor.value);
     }
+
     task["mark"] = false;
+
     this.setState({ loar: true });
 
     axios
-      .post("/tasks/" + this.props.date + ".json", task)
+      .post("/tasks/" + this.props.date + "/" + seccion + ".json", task)
       .then((req) => {
         this.setState({ loar: false });
         this.props.cerrarVentana();
