@@ -1,5 +1,34 @@
+.Secciones {
+  box-sizing: border-box;
+  display: grid;
+  padding: 1em;
+  grid-gap: 20px;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  transition: grid-template-columns ease 2s;
+}
 .Seccion {
+  box-sizing: border-box;
   border: 1px solid #ccc;
   box-shadow: 0 1px 2px #eee;
-  margin: 1em;
+  width: 100%;
+  transition: box-shadow ease 1s;
 }
+.Seccion:hover {
+  box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+}
+.Seccion > h2 {
+  text-transform: uppercase;
+}
+
+/* @media (max-width: 1300px) {
+  .Secciones {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .Secciones {
+    grid-template-columns: 1fr;
+  }
+} */

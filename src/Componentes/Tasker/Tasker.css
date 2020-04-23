@@ -1,11 +1,11 @@
 .tasks {
   margin: auto;
   box-sizing: border-box;
-
-  width: 50%;
+  background-color: #ffffff;
+  width: 85%;
   text-align: center;
-  border: solid 2px #eee;
-  box-shadow: 0 2px 2px #ccc;
+  /* border: solid 2px #eee;
+  box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8); */
 }
 .Spinner {
   position: relative;
@@ -13,11 +13,11 @@
 }
 @media (max-width: 700px) {
   .tasks {
-    width: 80%;
+    width: 85%;
   }
 }
 @media (max-width: 499px) {
   .tasks {
-    width: 90%;
+    width: 95%;
   }
 }

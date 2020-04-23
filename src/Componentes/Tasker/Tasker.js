@@ -121,12 +121,14 @@ export class Tasker extends Component {
 
   updateTaskHandler = (taskUpdated) => {
     const token = this.state.taskToUpdate[0].id;
+
     const task = {
-      id: this.state.taskToUpdate[0].id,
       task: taskUpdated.task.value,
       hora: taskUpdated.hora.value,
       prioridad: taskUpdated.prioridad.value,
+      mark: false,
     };
+
     axios
       .put(
         "/tasks/" +
@@ -154,6 +156,8 @@ export class Tasker extends Component {
               this.setState({ wantUpdate: false, taskToUpdate: null });
               this.reRender();
             });
+        this.setState({ wantUpdate: false, taskToUpdate: null });
+        this.reRender();
       });
   };
   cerrarVentana = () => {

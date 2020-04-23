@@ -3,6 +3,8 @@ import Calendar from "react-calendar";
 import Ventana from "../../../UI/Ventana/Ventana";
 import classes from "./configTasker.css";
 import CreateTask from "../Task/CreateTask/CreateTask";
+import Arrow from "../../../Assets/Imagenes/Arrow.png";
+import Plus from "../../../Assets/Imagenes/plus.png";
 
 class ConfigTasker extends Component {
   state = {
@@ -77,19 +79,23 @@ class ConfigTasker extends Component {
             className={classes.newDate}
             onClick={() => this.btnNextPrev(false)}
           >
-            {"<"}
+            <img src={Arrow} alt="logo" className={classes.left} />
           </div>
+
           <p onClick={this.openCalendar} className={classes.Date}>
             {fecha}
           </p>
+
           <div
             className={classes.newDate}
             onClick={() => this.btnNextPrev(true)}
           >
-            {">"}
+            <img src={Arrow} alt="logo" className={classes.right} />
           </div>
         </div>
-        <button onClick={this.openCreate}>Agregar</button>
+        <div className={classes.Controles}>
+          <img src={Plus} alt="Agregar" onClick={this.openCreate} />
+        </div>
       </React.Fragment>
     );
   }

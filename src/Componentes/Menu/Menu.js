@@ -5,7 +5,7 @@ import Nav from "./Nav/Nav";
 const Menu = () => {
   return (
     <div className={classes.Menu}>
-      <p>Logo</p>
+      <h3>Tasker</h3>
       <Nav />
     </div>
   );

@@ -5,8 +5,11 @@ import classes from "./Nav.css";
 const Nav = () => {
   return (
     <div className={classes.Nav}>
-      <p>Tasks |</p>
-      <p>| About</p>
+      <ul>
+        <li>Tasks</li>
+        <li>About</li>
+        <li>Profile</li>
+      </ul>
     </div>
   );
 };
