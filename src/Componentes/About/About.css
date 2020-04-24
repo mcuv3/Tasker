@@ -1,0 +1,48 @@
+.About {
+  margin-top: -1em;
+  height: 90vh;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.95;
+}
+.Perfil {
+  padding-top: 12em;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  align-items: center;
+}
+.Img {
+  margin-top: -17%;
+  z-index: 100;
+  width: 35%;
+  display: inline;
+  border-radius: 50%;
+  box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+}
+.Name {
+  background-color: #e6e6e660;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 1px 5px rgba(104, 104, 104, 0.561);
+}
+.Content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 2em;
+  height: 100px;
+  background-color: #2e2e2ebb;
+  font-style: italic;
+  text-align: center;
+  box-shadow: 0 1px 5px rgba(104, 104, 104, 0.561);
+}
+.Redes {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 1px 5px rgba(104, 104, 104, 0.561);
+}

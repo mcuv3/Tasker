@@ -16,6 +16,7 @@
   height: 1em;
   position: relative;
   left: 36%;
+  font-family: inherit;
 }
 .Seleccion {
   width: 368px;

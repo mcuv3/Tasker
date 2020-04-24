@@ -1,0 +1,24 @@
+.Date {
+  font-style: italic;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.5em;
+  color: white;
+
+  transition: ease 0.5s margin-left;
+}
+.Create {
+  margin-top: -1em;
+  cursor: pointer;
+  font-style: italic;
+  position: absolute;
+  top: -20px;
+  left: 160px;
+  color: #00000096;
+  border: 1px solid rgba(0, 0, 0, 0.657);
+  border-radius: 15px;
+  padding: 0.3em;
+}
+.Create:hover {
+  font-weight: bold;
+}

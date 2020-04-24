@@ -10,6 +10,7 @@ const Tasks = (props) => {
           key={task.id}
           title={task.task}
           mark={task.mark}
+          hora={task.hora}
           prioridad={task.prioridad}
           Checked={() => props.mark(task.id)}
           delete={() => props.delete(task.id)}

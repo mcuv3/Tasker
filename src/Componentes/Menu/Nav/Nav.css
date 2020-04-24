@@ -10,15 +10,21 @@
 .Nav ul li {
   display: flex;
   box-sizing: border-box;
-  padding: 15px 5px;
   text-transform: uppercase;
 }
+.Nav ul li a {
+  padding: 15px 5px;
+  text-decoration: none;
+  color: black;
+}
 
-.Nav ul li:hover {
+.Nav ul li a:hover,
+.Nav ul li a:active,
+.Nav ul li a.active {
+  font-weight: bold;
+  color: black;
   background-color: rgba(0, 0, 0, 0.082);
   box-shadow: 0 3px rgba(0, 0, 0, 0.993);
-
-  /* border-bottom: 2px solid black; */
   color: black;
   cursor: pointer;
 }

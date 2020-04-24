@@ -22,6 +22,9 @@ export class Tasker extends Component {
   componentDidMount() {
     this.reRender();
   }
+  componentWillUnmount() {
+    console.log("Se desmonto wey");
+  }
 
   reRender = (date) => {
     let realDate = "";
@@ -195,7 +198,7 @@ export class Tasker extends Component {
       if (this.state.noTasks)
         tasks = (
           <div className={classes.Spinner}>
-            <p>Add Some Tasks ....</p>
+            <p>Añade algunas tareas ....</p>
           </div>
         );
       else

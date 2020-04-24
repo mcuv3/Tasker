@@ -3,6 +3,10 @@ import classes from "./CreateTask.css";
 import axios from "../../../../axios-tasker";
 import Input from "../../../../UI/Input/Input";
 import Boton from "../../../../UI/Buttoms/Button";
+import Spinner from "../../../../UI/Spinner/Spinner";
+import Calendario from "react-datepicker";
+import CalendarioBtn from "../../../../UI/Buttoms/Calendar/Calendar";
+
 class CreateTask extends Component {
   constructor(props) {
     super(props);
@@ -57,7 +61,7 @@ class CreateTask extends Component {
         hora: {
           tag: "input",
           config: {
-            required: true,
+            required: false,
             type: "time",
           },
           value: this.props.update ? this.props.task[0].hora : "",
@@ -65,6 +69,8 @@ class CreateTask extends Component {
         },
       },
       loar: false,
+      date: new Date(),
+      realDate: "",
     };
   }
 
@@ -80,8 +86,19 @@ class CreateTask extends Component {
 
     this.setState({ loar: true });
 
+    const realDate =
+      (this.state.date.getDate() < 10
+        ? "0" + this.state.date.getDate()
+        : this.state.date.getDate()) +
+      "" +
+      (this.state.date.getMonth() < 10
+        ? "0" + this.state.date.getMonth()
+        : this.state.date.getMonth()) +
+      "" +
+      this.state.date.getFullYear();
+
     axios
-      .post("/tasks/" + this.props.date + "/" + seccion + ".json", task)
+      .post("/tasks/" + realDate + "/" + seccion + ".json", task)
       .then((req) => {
         this.setState({ loar: false });
         this.props.cerrarVentana();
@@ -113,6 +130,9 @@ class CreateTask extends Component {
     event.preventDefault();
     this.props.updateTask(this.state.form);
   };
+  onChange = (date) => {
+    this.setState({ date });
+  };
 
   render() {
     const elementoForm = [];
@@ -134,18 +154,28 @@ class CreateTask extends Component {
       });
     }
 
-    let formulario = <h1>LOADING ....</h1>;
+    let formulario = <Spinner />;
     if (!this.state.loar) {
       formulario = (
         <form
           className={classes.Formulario}
           onSubmit={this.props.update ? this.updateHandler : this.createTask}
         >
-          {this.props.update ? (
-            <h2>Modifica tu tarea</h2>
-          ) : (
-            <h2>Crea tu tarea</h2>
-          )}
+          <header>
+            {this.props.update ? (
+              <h2>Modifica tu tarea</h2>
+            ) : (
+              <h2>Crea tu tarea</h2>
+            )}
+            <Calendario
+              selected={this.state.date}
+              minDate={new Date()}
+              onChange={this.onChange}
+              value={this.state.date}
+              customInput={<CalendarioBtn estilo />}
+            />
+          </header>
+
           {elementoForm.map((elemento) => {
             return (
               <Input

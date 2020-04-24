@@ -1,7 +1,11 @@
 .Formulario {
   display: flex;
   flex-direction: column;
-  margin: auto;
+
   margin-top: 1em;
-  align-items: center;
+  align-items: flex-start;
+}
+.Formulario header h2 {
+  text-align: left;
+  font-style: italic;
 }
