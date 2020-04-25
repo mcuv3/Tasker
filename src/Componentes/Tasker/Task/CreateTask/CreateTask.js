@@ -6,6 +6,8 @@ import Boton from "../../../../UI/Buttoms/Button";
 import Spinner from "../../../../UI/Spinner/Spinner";
 import Calendario from "react-datepicker";
 import CalendarioBtn from "../../../../UI/Buttoms/Calendar/Calendar";
+import add from "./../../../../Assets/Imagenes/plus.png";
+import update from "./../../../../Assets/Imagenes/update.png";
 
 class CreateTask extends Component {
   constructor(props) {
@@ -139,11 +141,11 @@ class CreateTask extends Component {
 
     let botones = this.props.update ? (
       <Boton estilo="Submit" type="submit">
-        Actualizar
+        <img src={update} alt="actualizar" />
       </Boton>
     ) : (
       <Boton estilo="Submit" type="submit">
-        Agregar
+        <img src={add} alt="agregar" />
       </Boton>
     );
 

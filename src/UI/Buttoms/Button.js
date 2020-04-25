@@ -6,8 +6,8 @@ const Button = (props) => {
   return (
     <button
       onClick={props.clicked}
-      className={[classes[props.estilo]].join(" ")}
       type={props.type}
+      className={[classes[props.estilo]].join(" ")}
     >
       {props.children}
     </button>

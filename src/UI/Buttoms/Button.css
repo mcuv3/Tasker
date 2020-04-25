@@ -7,6 +7,10 @@ button {
   padding: 8px 10px;
   border: 1px solid #0a5300;
 }
+.Updated > img {
+  width: 35px;
+  height: 35px;
+}
 .Updated:hover {
   background-color: lightgreen;
 }

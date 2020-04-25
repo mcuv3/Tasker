@@ -1,5 +1,4 @@
 .About {
-  margin-top: -1em;
   height: 90vh;
   background-position: center center;
   background-repeat: no-repeat;
@@ -18,31 +17,60 @@
   margin-top: -17%;
   z-index: 100;
   width: 35%;
-  display: inline;
   border-radius: 50%;
   box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+  transition: ease transform 0.5s;
+}
+.Img:hover {
+  transform: scale(1.1);
 }
 .Name {
   background-color: #e6e6e660;
   width: 100%;
   text-align: center;
   box-shadow: 0 1px 5px rgba(104, 104, 104, 0.561);
+  padding-bottom: 3em;
+  border-radius: 15px 15px 0 0;
+  transition: ease transform 0.5s;
+}
+.Name:hover {
+  transform: scale(1.05);
+  z-index: 100;
+}
+.Name span {
+  font-size: 30px;
+  font-style: italic;
+  color: #a1a1a1;
 }
 .Content {
   width: 100%;
+  border-radius: 15px;
   display: flex;
   align-items: center;
   padding: 2em;
   height: 100px;
-  background-color: #2e2e2ebb;
+  background-color: #6d6d6dd0;
   font-style: italic;
   text-align: center;
-  box-shadow: 0 1px 5px rgba(104, 104, 104, 0.561);
+  box-shadow: 0 1px 5px rgba(104, 104, 104, 0.082);
+  font-size: 20px;
+  font-weight: 500;
 }
 .Redes {
-  width: 100%;
+  width: 45%;
+  border-radius: 0 0 15px 15px;
   align-items: center;
   justify-content: center;
   text-align: center;
   box-shadow: 0 1px 5px rgba(104, 104, 104, 0.561);
+}
+.red {
+  margin-top: 0.5em;
+  width: 35px;
+  height: 35px;
+  margin-right: 0.1em;
+  transition: ease 0.5s transform;
+}
+.red:hover {
+  transform: scale(1.1);
 }
