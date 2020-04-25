@@ -8,12 +8,8 @@
   transition: ease 0.5s margin-left;
 }
 .Create {
-  margin-top: -1em;
   cursor: pointer;
   font-style: italic;
-  position: absolute;
-  top: -20px;
-  left: 160px;
   color: #00000096;
   border: 1px solid rgba(0, 0, 0, 0.657);
   border-radius: 15px;

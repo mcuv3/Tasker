@@ -8,16 +8,16 @@ import face from "../../Assets/Imagenes/face.png";
 import linkedin from "../../Assets/Imagenes/linkedin.png";
 import git from "../../Assets/Imagenes/git.png";
 import twitter from "../../Assets/Imagenes/twitter.png";
-// style={{ backgroundImage: `url(${back})` }}
+//
 const About = (props) => {
   return (
-    <div className={classes.About}>
+    <div className={classes.About} style={{ backgroundImage: `url(${back})` }}>
       <div className={classes.Perfil}>
         <div className={classes.Name}>
           <img className={classes.Img} src={profile} alt="Profile" />
-          <h1>Mauricio Antonio Martinez Martinez</h1>
+          <h1>Mauricio Antonio Martínez Martínez</h1>
 
-          <span>by mcuve</span>
+          <span>- mcuve -</span>
         </div>
         <div className={classes.Content}>
           Esta es una página web desarrollada con react, creada con la inteción

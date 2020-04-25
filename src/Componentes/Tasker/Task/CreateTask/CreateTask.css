@@ -1,11 +1,14 @@
 .Formulario {
   display: flex;
   flex-direction: column;
-
+  width: 100%;
   margin-top: 1em;
-  align-items: flex-start;
+  align-items: flex-end;
 }
 .Formulario header h2 {
   text-align: left;
   font-style: italic;
+}
+.Boton {
+  width: 40px;
 }

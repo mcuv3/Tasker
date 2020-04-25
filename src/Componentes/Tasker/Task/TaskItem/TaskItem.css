@@ -49,11 +49,13 @@
 .Task:hover {
   border: 1px solid black;
   transform: scale(1.02);
-  box-shadow: 0 2px 3px rgba(52, 52, 52, 0.3);
+  box-shadow: 0 2px 3px rgba(22, 88, 36, 0.3);
 }
 
 .Marked {
   text-decoration: line-through;
+  font-weight: bold;
+  transform: scale(1.02);
 }
 
 .del {

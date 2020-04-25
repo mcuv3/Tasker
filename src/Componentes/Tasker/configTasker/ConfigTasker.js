@@ -10,7 +10,6 @@ import CalendarioBtn from "../../../UI/Buttoms/Calendar/Calendar";
 class ConfigTasker extends Component {
   state = {
     date: new Date(),
-    show: false,
     showCreate: false,
     formatDate: "",
   };
@@ -31,9 +30,6 @@ class ConfigTasker extends Component {
   };
   openCalendar = () => this.setState({ show: true });
 
-  ocultarCalendario = () => {
-    this.setState({ show: false });
-  };
   ocultarCreate = (e) => {
     if (e) this.props.reUpdate();
     this.setState({ showCreate: false });
@@ -53,20 +49,6 @@ class ConfigTasker extends Component {
     return (
       <React.Fragment>
         <Ventana
-          mostrar={this.state.show}
-          cerrarVentana={this.ocultarCalendario}
-          calendario
-        >
-          <Calendario
-            selected={this.state.date}
-            minDate={new Date()}
-            onChange={this.onChange}
-            value={this.state.date}
-            className={classes.Calendario}
-            inline
-          />
-        </Ventana>
-        <Ventana
           mostrar={this.state.showCreate}
           cerrarVentana={this.ocultarCreate}
         >
@@ -84,10 +66,6 @@ class ConfigTasker extends Component {
           >
             <img src={Arrow} alt="logo" className={classes.left} />
           </div>
-
-          {/* <p onClick={this.openCalendar} className={classes.Date}>
-            {fecha}
-          </p> */}
           <Calendario
             selected={this.state.date}
             minDate={new Date()}

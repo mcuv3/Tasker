@@ -111,14 +111,7 @@ class CreateTask extends Component {
   };
 
   validarForm = () => {
-    const task = {};
-    for (let key in this.state.form) {
-      let valor = { ...this.state.form[key] };
-      task[key] = valor.value;
-    }
-    task["mark"] = false;
-
-    console.log(task);
+    // Pendiente.... Cantidad minima y maxima de caracteres en los tasks
   };
 
   changeInput = (event, tag) => {
@@ -140,12 +133,12 @@ class CreateTask extends Component {
     const elementoForm = [];
 
     let botones = this.props.update ? (
-      <Boton estilo="Submit" type="submit">
-        <img src={update} alt="actualizar" />
+      <Boton estilo="Updated" type="submit">
+        <img src={update} alt="actualizar" className={classes.Boton} />
       </Boton>
     ) : (
       <Boton estilo="Submit" type="submit">
-        <img src={add} alt="agregar" />
+        <img src={add} alt="agregar" className={classes.Boton} />
       </Boton>
     );
 
@@ -163,12 +156,12 @@ class CreateTask extends Component {
           className={classes.Formulario}
           onSubmit={this.props.update ? this.updateHandler : this.createTask}
         >
-          <header>
-            {this.props.update ? (
-              <h2>Modifica tu tarea</h2>
-            ) : (
-              <h2>Crea tu tarea</h2>
-            )}
+          {this.props.update ? (
+            <h2>Modifica tu tarea</h2>
+          ) : (
+            <h2>Crea tu tarea</h2>
+          )}
+          <div className={classes.fecha}>
             <Calendario
               selected={this.state.date}
               minDate={new Date()}
@@ -176,7 +169,7 @@ class CreateTask extends Component {
               value={this.state.date}
               customInput={<CalendarioBtn estilo />}
             />
-          </header>
+          </div>
 
           {elementoForm.map((elemento) => {
             return (

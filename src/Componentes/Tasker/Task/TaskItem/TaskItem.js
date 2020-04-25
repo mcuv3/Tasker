@@ -27,7 +27,12 @@ const TaskItem = (props) => {
   }
 
   return (
-    <div className={colorImportance.join(" ")}>
+    <div
+      className={colorImportance.join(" ")}
+      style={{
+        boxShadow: props.marked ? "0 2px 3px rgba(55, 155, 77, 0.3)" : null,
+      }}
+    >
       <div className={classes.TaskItem}>
         <CheckBox Checked={props.Checked} mark={props.mark} />
         <p className={isChecked.join(" ")} onClick={props.update}>

@@ -1,18 +1,24 @@
 button {
   font-size: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Updated {
-  background-color: green;
-  padding: 8px 10px;
-  border: 1px solid #0a5300;
+  margin-top: 1em;
+  background-color: rgb(86, 177, 86);
+  border: 1px solid #000000;
+  border-radius: 100%;
+  padding: 6px;
+  transition: transform ease 0.25s;
 }
-.Updated > img {
-  width: 35px;
-  height: 35px;
-}
-.Updated:hover {
-  background-color: lightgreen;
+.Updated:hover,
+.Submit:hover {
+  transform: scale(1.1);
+  background-color: #8fbb8e;
+  box-shadow: 0 2px 3px #00000050;
+  cursor: pointer;
 }
 
 .Delete {
@@ -24,17 +30,10 @@ button {
 }
 
 .Submit {
-  font-family: inherit;
-  background-color: #249c1c;
+  background-color: rgb(110, 187, 110);
   margin-top: 1em;
-  padding: 8px 10px;
+  border-radius: 100px;
+  padding: 0;
   border: 1px solid black;
   transition: transform ease 0.25s;
-}
-
-.Submit:hover {
-  transform: scale(1.1);
-  background-color: #62bd5b;
-  box-shadow: 0 2px 3px #00000050;
-  cursor: pointer;
 }
