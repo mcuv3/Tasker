@@ -63,7 +63,7 @@ export class Tasker extends Component {
               ...task[llave],
             });
           }
-          secciones.push({ seccion: key, tareas: tareas });
+          secciones.push({ seccion: key, tareas });
           tareas = [];
         }
         if (secciones.length === 0)
@@ -78,20 +78,32 @@ export class Tasker extends Component {
   markHandler = (id, seccion) => {
     this.setState({ markFlag: true });
     const index = this.state.tasks.findIndex((e) => e.seccion === seccion);
-    const tasks = {
-      ...this.state.tasks[index].tareas.filter((task) => task.id === id),
-    };
-    const value = !tasks[0].mark;
+    const indexTask = this.state.tasks[index].tareas.findIndex(
+      (e) => e.id === id
+    );
+    let task;
+
+    if (!this.state.tasks[index].tareas[indexTask].mark) {
+      task = {
+        hora: this.state.tasks[index].tareas[indexTask].hora,
+        mark: true,
+        prioridad: "5",
+        prevPrioridad: this.state.tasks[index].tareas[indexTask].prioridad,
+        task: this.state.tasks[index].tareas[indexTask].task,
+      };
+    } else {
+      task = {
+        hora: this.state.tasks[index].tareas[indexTask].hora,
+        mark: false,
+        prioridad: this.state.tasks[index].tareas[indexTask].prevPrioridad,
+        task: this.state.tasks[index].tareas[indexTask].task,
+      };
+    }
+
     axios
       .put(
-        "/tasks/" +
-          this.state.realDate +
-          "/" +
-          seccion +
-          "/" +
-          id +
-          "/mark.json",
-        value
+        "/tasks/" + this.state.realDate + "/" + seccion + "/" + id + ".json",
+        task
       )
       .then((response) => {
         this.reRender();

@@ -4,9 +4,9 @@ import CheckBox from "../../../../UI/CheckBox/CheckBox";
 import Boton from "../../../../UI/Buttoms/Button";
 const TaskItem = (props) => {
   let isChecked = [classes.tarea];
-  if (props.marked) isChecked.push(classes.Marked);
 
   let colorImportance = [classes.Task];
+  if (props.marked) isChecked.push(classes.Marked);
 
   switch (props.prioridad) {
     case "1":
@@ -20,6 +20,9 @@ const TaskItem = (props) => {
       break;
     case "4":
       colorImportance.push(classes.Normal);
+      break;
+    case "5":
+      colorImportance.push(classes.MarkedTask);
       break;
     default:
       colorImportance.push([]);

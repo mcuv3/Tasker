@@ -23,6 +23,9 @@
 .Normal {
   background-color: #66d7d1;
 }
+.MarkedTask {
+  background-color: rgba(128, 128, 128, 0.692);
+}
 .TaskItem {
   align-items: flex-start;
   display: flex;

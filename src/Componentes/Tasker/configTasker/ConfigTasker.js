@@ -66,18 +66,16 @@ class ConfigTasker extends Component {
           >
             <img src={Arrow} alt="logo" className={classes.left} />
           </div>
-          <Calendario
-            selected={this.state.date}
-            minDate={new Date()}
-            onChange={this.onChange}
-            value={this.state.date}
-            customInput={
-              <CalendarioBtn
-                value={(ref) => (this.child = ref)}
-                onClick={(ref) => (this.child = ref)}
-              />
-            }
-          />
+          <div className={classes.CalendarioDiv}>
+            <Calendario
+              selected={this.state.date}
+              minDate={new Date()}
+              onChange={this.onChange}
+              value={this.state.date}
+              customInput={<CalendarioBtn />}
+            />
+          </div>
+
           <div
             className={classes.newDate}
             onClick={() => this.btnNextPrev(true)}

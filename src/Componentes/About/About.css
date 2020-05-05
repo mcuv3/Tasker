@@ -1,6 +1,8 @@
 .About {
   margin-top: -1em;
+  position: fixed;
   height: 95vh;
+  width: 100%;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -37,6 +39,7 @@
   padding-bottom: 3em;
   border-radius: 15px 15px 0 0;
   transition: ease transform 0.5s;
+  height: auto;
 }
 
 .Name span {
@@ -53,7 +56,7 @@
   display: flex;
   align-items: center;
   padding: 2em;
-  height: 100px;
+  height: auto;
   background-color: #ffffff;
   font-style: italic;
   text-align: center;
@@ -69,6 +72,7 @@
   text-align: center;
   background-color: #8686868f;
   box-shadow: 0 1px 5px rgba(104, 104, 104, 0.561);
+  height: auto;
 }
 .red {
   margin-top: 0.5em;
@@ -76,7 +80,15 @@
   height: 35px;
   margin-right: 0.1em;
   transition: ease 0.5s transform;
+  height: auto;
 }
 .red:hover {
   transform: scale(1.1);
+}
+
+@media (max-width: 400px) {
+  .Name > h1,
+  span {
+    font-size: 20px;
+  }
 }

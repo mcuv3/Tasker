@@ -4,7 +4,7 @@
   padding: 1em;
   grid-gap: 20px;
   width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   transition: grid-template-columns ease 2s;
 }
 .Seccion {
