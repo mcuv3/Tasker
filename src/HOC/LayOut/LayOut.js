@@ -5,10 +5,10 @@ import Menu from "../../Componentes/Menu/Menu";
 export class LayOut extends Component {
   render() {
     return (
-      <div className={classes.Contenedor}>
+      <React.Fragment>
         <Menu />
-        {this.props.children}
-      </div>
+        <main className={classes.Contenedor}>{this.props.children}</main>
+      </React.Fragment>
     );
   }
 }

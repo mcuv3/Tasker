@@ -4,10 +4,12 @@ import Nav from "./Nav/Nav";
 
 const Menu = () => {
   return (
-    <div className={classes.Menu}>
+    <header className={classes.Menu}>
       <h3>Tasker</h3>
-      <Nav />
-    </div>
+      <nav className={classes.Nave}>
+        <Nav />
+      </nav>
+    </header>
   );
 };
 

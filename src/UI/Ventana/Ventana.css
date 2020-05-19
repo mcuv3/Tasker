@@ -1,7 +1,7 @@
 .Ventana {
   z-index: 500;
   position: fixed;
-  width: auto;
+  /* width: auto; */
   padding: 2em;
   box-sizing: border-box;
   transition: all 0.3s ease-out;

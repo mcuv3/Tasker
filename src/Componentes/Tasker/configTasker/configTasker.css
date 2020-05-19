@@ -15,7 +15,7 @@
   background-color: #000000;
   margin: auto;
   color: white;
-  width: 50%;
+  width: 500px;
   height: 3em;
   border: 1px solid black;
   border-radius: 15px;
@@ -55,7 +55,7 @@
 }
 
 .Controles {
-  width: 10%;
+  width: 200px;
   margin: auto;
   border-radius: 0 0 15px 15px;
   border: solid black 1px;

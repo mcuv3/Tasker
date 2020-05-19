@@ -3,15 +3,16 @@
   display: grid;
   padding: 1em;
   grid-gap: 20px;
-  width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  margin: auto;
+  width: 75%;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   transition: grid-template-columns ease 2s;
 }
 .Seccion {
   box-sizing: border-box;
   border: 1px solid #ccc;
   box-shadow: 0 1px 2px #eee;
-  width: 100%;
+
   transition: box-shadow ease 1s;
 }
 .Seccion:hover {
@@ -27,9 +28,9 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
-@media (max-width: 700px) {
+*/
+@media (max-width: 500px) {
   .Secciones {
-    grid-template-columns: 1fr;
+    width: 100%;
   }
-} */
+}

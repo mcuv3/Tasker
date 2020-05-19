@@ -16,11 +16,6 @@ const Nav = () => {
             About
           </NavLink>
         </li>
-        {/* <li>
-          <NavLink to="/About" activeClassName={classes.active}>
-            Profile
-          </NavLink>
-        </li> */}
       </ul>
     </div>
   );
