@@ -12,3 +12,13 @@
 .Boton {
   width: 40px;
 }
+.fecha {
+  align-self: flex-start;
+}
+
+@media (max-width: 500px) {
+  .Formulario {
+    width: 100%;
+    align-items: center;
+  }
+}
