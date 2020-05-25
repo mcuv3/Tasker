@@ -1,0 +1,20 @@
+.Botones {
+  display: flex;
+  margin: 1em auto;
+  justify-content: space-between;
+  width: 50%;
+}
+.Auth {
+  width: 500px;
+  margin: auto;
+}
+
+.Error {
+  text-align: center;
+  margin: 1em auto;
+  width: 350px;
+  padding: 0.5rem 0.2rem;
+  border: 1px solid rgba(167, 0, 0, 0.767);
+  background-color: rgba(255, 0, 0, 0.26);
+  border-radius: 25px;
+}

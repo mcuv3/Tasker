@@ -29,3 +29,13 @@
   color: black;
   cursor: pointer;
 }
+
+.Auth {
+  color: black;
+  margin-left: 2em;
+  align-self: center;
+}
+
+.Auth:hover {
+  cursor: pointer;
+}

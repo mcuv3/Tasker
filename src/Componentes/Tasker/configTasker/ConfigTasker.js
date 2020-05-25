@@ -13,9 +13,6 @@ class ConfigTasker extends Component {
     showCreate: false,
     formatDate: "",
   };
-  componentDidMount() {
-    this.onChange(this.state.date);
-  }
 
   onChange = (date) => {
     const realDate =

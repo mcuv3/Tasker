@@ -23,3 +23,17 @@
   resize: none;
   height: 8em;
 }
+
+.Text {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.137);
+  transition: transform ease 0.25s;
+}
+.Text:hover {
+  transform: scale(1.005);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.404);
+}
+.Text:focus {
+  outline: none;
+  box-shadow: 0 2px black;
+}

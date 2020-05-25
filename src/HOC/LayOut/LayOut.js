@@ -1,16 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 import classes from "./LayOut.css";
 import Menu from "../../Componentes/Menu/Menu";
+import LoadingBar from "../../UI/LoadingBar/LoadingBar";
+import { useStore } from "../../store/store";
 
-export class LayOut extends Component {
-  render() {
-    return (
-      <React.Fragment>
-        <Menu />
-        <main className={classes.Contenedor}>{this.props.children}</main>
-      </React.Fragment>
-    );
-  }
-}
+const LayOut = (props) => {
+  const loading = useStore()[0].loading;
+  return (
+    <React.Fragment>
+      <Menu />
+      <div className={classes.loading}>{loading ? <LoadingBar /> : null}</div>
+      <main className={classes.Contenedor}>{props.children}</main>
+    </React.Fragment>
+  );
+};
 
 export default LayOut;

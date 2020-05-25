@@ -1,0 +1,37 @@
+.Boton {
+  border: none;
+  background-color: transparent;
+  transition: 0.1s ease transform;
+}
+.Boton:disabled {
+  background-color: 50%;
+  color: 50%;
+}
+.Boton:hover {
+  transform: scale(1.01);
+  cursor: pointer;
+}
+
+.small {
+  font-size: 15px;
+  padding: 0.5rem 1rem;
+}
+.medium {
+  padding: 0.8rem 1.2rem;
+  font-size: 20px;
+}
+
+.large {
+  padding: 1rem 2rem;
+  font-size: 25px;
+}
+
+.primario {
+  background-color: rgb(0, 0, 0);
+  color: white;
+  font-weight: bold;
+}
+.secundario {
+  background-color: transparent;
+  border: 1.5px solid black;
+}

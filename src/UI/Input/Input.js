@@ -4,7 +4,17 @@ import classes from "./Input.css";
 const Input = (props) => {
   let inputDisplay = null;
   switch (props.tag) {
-    case "input":
+    case "input-text":
+      inputDisplay = (
+        <input
+          className={[classes.Input, classes.Text].join(" ")}
+          {...props.config}
+          value={props.value}
+          onChange={props.change}
+        />
+      );
+      break;
+    case "input-time":
       inputDisplay = (
         <input
           className={[classes.Input, classes.Hora].join(" ")}
