@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import classes from "./Auth.css";
 import Input from "../../UI/Input/Input";
@@ -35,12 +35,6 @@ const Auth = (props) => {
   const [isSignUp, setSign] = useState(false);
   const [successLogin, setSuccessLogin] = useState(false);
 
-  useEffect(() => {
-    return () => {
-      if(!store.auth.idToken) dispatch("RESET_AUTH");
-    };
-  }, []);
-
   const changeInput = (e, id) => {
     setForm(
       form.map((campo) => {
@@ -62,7 +56,7 @@ const Auth = (props) => {
     });
   };
   if (successLogin && !store.auth.error) return <Redirect to="/" />;
-  //console.log(store.auth);
+
   return (
     <div className={classes.Auth}>
       <form onSubmit={authSubmit}>

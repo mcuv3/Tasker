@@ -14,16 +14,19 @@ class ConfigTasker extends Component {
     formatDate: "",
   };
 
-  onChange = (date) => {
-    const realDate =
-      (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
-      "" +
-      (date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()) +
-      "" +
-      date.getFullYear();
+  shouldComponentUpdate(nextProps, nextState) {
+    // if (
+    //   this.state.formatDate === nextState.formatDate &&
+    //   this.state.showCreate === nextState.showCreate
+    // )
+    //   return false;
+    // else
+    return true;
+  }
 
-    this.setState({ date, formatDate: realDate });
-    this.props.updateDate(date);
+  onChange = (date) => {
+    this.setState({ date });
+    this.props.updateDate(date.toDateString());
   };
   openCalendar = () => this.setState({ show: true });
 
@@ -39,6 +42,7 @@ class ConfigTasker extends Component {
     flag
       ? fecha.setDate(fecha.getDate() + 1)
       : fecha.setDate(fecha.getDate() - 1);
+
     this.onChange(fecha);
   };
 
@@ -52,7 +56,7 @@ class ConfigTasker extends Component {
           <CreateTask
             cerrarVentana={() => this.ocultarCreate(true)}
             update={false}
-            date={this.state.formatDate}
+            date={this.state.date.toDateString()}
             dateReal={this.state.date}
           />
         </Ventana>

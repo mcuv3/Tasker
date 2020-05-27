@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import classes from "./Tasker.css";
 import Ventana from "../../UI/Ventana/Ventana";
 import Spinner from "../../UI/Spinner/Spinner";
@@ -14,41 +14,22 @@ const Tasker = () => {
     wantUpdate: false,
     taskToUpdate: null,
   });
-  const [realDate, setRealDate] = useState(new Date().toDateString());
+  const [date, setDate] = useState(new Date().toDateString());
   const [loading, setLoading] = useState(false);
   const [noTasks, setNoTasks] = useState(false);
   const [markFlag, setMarkFlag] = useState(false);
 
   useEffect(() => {
-    reRender(new Date());
+    reRender(date);
   }, []);
 
   const reRender = (date) => {
-    let realDate = "";
-    if (!date) date = new Date();
-
-    if (date) {
-      realDate =
-        (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
-        "" +
-        (date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()) +
-        "" +
-        date.getFullYear();
-    } else {
-      realDate =
-        (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
-        "" +
-        (date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()) +
-        "" +
-        date.getFullYear();
-    }
     let userId = localStorage.getItem("localId");
-
     setLoading(true);
     axios
-      .get(`/${userId}/` + realDate + ".json")
+      .get(`/${userId}/` + date + ".json")
       .then((response) => {
-        setRealDate(realDate);
+        setDate(date);
         setLoading(false);
         setMarkFlag(false);
         let secciones = [];
@@ -80,60 +61,63 @@ const Tasker = () => {
       });
   };
 
-  const markHandler = (id, seccion) => {
-    setMarkFlag(true);
-    const index = tasks.findIndex((e) => e.seccion === seccion);
-    const indexTask = tasks[index].tareas.findIndex((e) => e.id === id);
-    let task;
+  const markHandler = useCallback(
+    (id, seccion) => {
+      setMarkFlag(true);
+      const index = tasks.findIndex((e) => e.seccion === seccion);
+      const indexTask = tasks[index].tareas.findIndex((e) => e.id === id);
+      let task;
 
-    if (!tasks[index].tareas[indexTask].mark) {
-      task = {
-        id,
-        hora: tasks[index].tareas[indexTask].hora,
-        mark: true,
-        prioridad: "5",
-        prevPrioridad: tasks[index].tareas[indexTask].prioridad,
-        task: tasks[index].tareas[indexTask].task,
-      };
-    } else {
-      task = {
-        id,
-        hora: tasks[index].tareas[indexTask].hora,
-        mark: false,
-        prioridad: tasks[index].tareas[indexTask].prevPrioridad,
-        task: tasks[index].tareas[indexTask].task,
-      };
-    }
+      if (!tasks[index].tareas[indexTask].mark) {
+        task = {
+          id,
+          hora: tasks[index].tareas[indexTask].hora,
+          mark: true,
+          prioridad: "5",
+          prevPrioridad: tasks[index].tareas[indexTask].prioridad,
+          task: tasks[index].tareas[indexTask].task,
+        };
+      } else {
+        task = {
+          id,
+          hora: tasks[index].tareas[indexTask].hora,
+          mark: false,
+          prioridad: tasks[index].tareas[indexTask].prevPrioridad,
+          task: tasks[index].tareas[indexTask].task,
+        };
+      }
 
-    axios
-      .put(
-        `/${localStorage.getItem("localId")}/` +
-          realDate +
-          "/" +
-          seccion +
-          "/" +
-          id +
-          ".json",
-        task
-      )
-      .then((response) => {
-        setTasks(
-          tasks.map((secc) => {
-            if (secc.seccion === seccion) {
-              secc.tareas[indexTask] = task;
-            }
-            return secc;
-          })
-        );
-      })
-      .catch((error) => console.log(error));
-  };
+      axios
+        .put(
+          `/${localStorage.getItem("localId")}/` +
+            date +
+            "/" +
+            seccion +
+            "/" +
+            id +
+            ".json",
+          task
+        )
+        .then((response) => {
+          setTasks(
+            tasks.map((secc) => {
+              if (secc.seccion === seccion) {
+                secc.tareas[indexTask] = task;
+              }
+              return secc;
+            })
+          );
+        })
+        .catch((error) => console.log(error));
+    },
+    [tasks]
+  );
 
   const deleteHandler = (id, seccion) => {
     axios
       .delete(
         `/${localStorage.getItem("localId")}/` +
-          realDate +
+          date +
           "/" +
           seccion +
           "/" +
@@ -192,12 +176,12 @@ const Tasker = () => {
       .then((res) => {
         if (
           taskUpdated.seccion.value !== wantToUpdateTask.taskToUpdate.seccion || //Necesitamos Filtrar la seccion antigua y agregar task
-          taskUpdated.fecha !== realDate //Eliminar task
+          taskUpdated.fecha !== date //Eliminar task
         ) {
           axios
             .delete(
               `/${localStorage.getItem("localId")}/` +
-                realDate +
+                date +
                 "/" +
                 wantToUpdateTask.taskToUpdate.seccion +
                 "/" +
@@ -211,7 +195,7 @@ const Tasker = () => {
                 if (secc.seccion === wantToUpdateTask.taskToUpdate.seccion) {
                   secc.tareas = secc.tareas.filter((t) => t.id !== token);
                 }
-                if (taskUpdated.fecha === realDate) {
+                if (taskUpdated.fecha === date) {
                   if (secc.seccion === taskUpdated.seccion.value) {
                     seccionFound = true;
                     secc.tareas.push(task);
@@ -220,7 +204,7 @@ const Tasker = () => {
                 return secc;
               });
 
-              if (!seccionFound && taskUpdated.fecha === realDate)
+              if (!seccionFound && taskUpdated.fecha === date)
                 newTasks.push({
                   seccion: taskUpdated.seccion.value,
                   tareas: [task],
@@ -249,16 +233,16 @@ const Tasker = () => {
         }
       });
   };
-  const cerrarVentana = () => {
+  const cerrarVentana = useCallback(() => {
     setWantToUpdateTask({
       wantUpdate: false,
       taskToUpdate: null,
     });
-  };
+  }, []);
 
-  const cambiarFecha = (fecha) => {
+  const cambiarFecha = useCallback((fecha) => {
     reRender(fecha);
-  };
+  }, []);
 
   let update = null;
   if (wantToUpdateTask.wantUpdate) {
@@ -303,7 +287,7 @@ const Tasker = () => {
       >
         {update}
       </Ventana>
-      <ConfigTasker updateDate={cambiarFecha} reUpdate={reRender} />
+      <ConfigTasker updateDate={cambiarFecha} reUpdate={() => reRender(date)} />
 
       {tasksJSX}
     </div>

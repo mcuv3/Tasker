@@ -25,7 +25,7 @@ const App = () => {
             <Route path="/About" component={About} />
             <Route path="/logout" component={LogOut} />
             <Route path="/" component={Tasks} />
-            <Redirect to="/Auth" />
+            {/* <Redirect to="/Auth" /> */}
           </Switch>
         </LayOut>
       </BrowserRouter>

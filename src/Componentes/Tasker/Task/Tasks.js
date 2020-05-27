@@ -1,7 +1,7 @@
 import React from "react";
 import Task from "./TaskItem/TaskItem";
 
-const Tasks = React.memo((props) => {
+const Tasks = (props) => {
   return props.tasks
     .sort((a, b) => a.prioridad - b.prioridad)
     .map((task) => {
@@ -19,6 +19,6 @@ const Tasks = React.memo((props) => {
         />
       );
     });
-});
+};
 
 export default Tasks;

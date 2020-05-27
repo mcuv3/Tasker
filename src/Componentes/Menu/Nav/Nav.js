@@ -5,7 +5,6 @@ import classes from "./Nav.css";
 
 const Nav = (props) => {
   const store = useStore()[0];
-  console.log(store);
 
   return (
     <div className={classes.Nav}>

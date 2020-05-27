@@ -3,7 +3,7 @@ import classes from "./CheckBox.css";
 
 const CheckBox = (props) => {
   return (
-    <div className={classes.page__toggle} style={{ marginTop: "1em" }}>
+    <div className={classes.page__toggle} style={{ marginTop: "0.75em" }}>
       <label className={classes.toggle}>
         <input
           className={classes.toggle__input}

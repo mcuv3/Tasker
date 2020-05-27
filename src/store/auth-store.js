@@ -23,7 +23,7 @@ const configureStore = () => {
         : "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCCf0ZdIKWK6YL07D1mf30gpj4XlwnDgac";
 
       let response = await dispatchAsync(url, user, state);
-      console.log(response);
+
       let data;
       if (response.status === 200) {
         localStorage.setItem("idToken", response.data.idToken);
@@ -50,12 +50,14 @@ const configureStore = () => {
             state.tasks.firstTask.task,
             state
           );
-
-          if (res.status === 400) data.auth.error = res.response.data.error;
+          if (!res.response) data.auth.error = res.error;
         }
       } else
         data = {
-          auth: { ...initialState.auth, error: response.error },
+          auth: {
+            ...initialState.auth,
+            error: response.error.response.data.error,
+          },
           loading: false,
         };
 
@@ -88,25 +90,17 @@ const configureStore = () => {
         },
       };
     },
-    RESET_AUTH: (state) => {
-      return {
-        ...initialState,
-        tasks: {
-          ...state.tasks,
-          firstTask: null,
-        },
-      };
-    },
   };
 
   const dispatchAsync = async (url, payload, state) => {
-    console.log(state.tasks.firstTask);
     try {
       const response = await axios.post(url, payload);
       return response;
     } catch (error) {
-      // console.log(error.response);
-      return { response: error.response, error: error.response.data.error };
+      return {
+        response: error.response,
+        error,
+      };
     }
   };
 

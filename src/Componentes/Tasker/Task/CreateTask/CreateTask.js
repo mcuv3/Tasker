@@ -79,24 +79,23 @@ const CreateTask = (props) => {
       let valor = { ...form[key] };
       key === "seccion" ? (seccion = valor.value) : (task[key] = valor.value);
     }
-
     task["mark"] = false;
-
-    const realDate =
-      (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
-      "" +
-      (date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()) +
-      "" +
-      date.getFullYear();
-
     if (!store.auth.localId) {
-      dispatch("SET_FIRST_TASK", { task, seccion, realDate });
+      dispatch("SET_FIRST_TASK", {
+        task,
+        seccion,
+        realDate: date.toDateString(),
+      });
       props.history.push("/Auth");
     } else {
       setLoading(true);
       axios
         .post(
-          `/${store.auth.localId}/` + realDate + "/" + seccion + ".json",
+          `/${store.auth.localId}/` +
+            date.toDateString() +
+            "/" +
+            seccion +
+            ".json",
           task
         )
         .then((req) => {
@@ -105,6 +104,7 @@ const CreateTask = (props) => {
         })
         .catch((error) => {
           console.log(error);
+          props.cerrarVentana();
         });
     }
   };
@@ -122,13 +122,7 @@ const CreateTask = (props) => {
 
   const updateHandler = (event) => {
     event.preventDefault();
-    const realDate =
-      (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
-      "" +
-      (date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()) +
-      "" +
-      date.getFullYear();
-    props.updateTask({ ...form, fecha: realDate });
+    props.updateTask({ ...form, fecha: date.toDateString() });
   };
   const onChange = (date) => {
     setDate(date);
@@ -186,7 +180,7 @@ const CreateTask = (props) => {
       </form>
     );
   }
-  console.log(store.auth.localId);
+
   return formulario;
 };
 

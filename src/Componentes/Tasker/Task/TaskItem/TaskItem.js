@@ -28,7 +28,7 @@ const TaskItem = (props) => {
       colorImportance.push([]);
       break;
   }
-
+  //console.log("RENDER ITEM");
   return (
     <div
       className={colorImportance.join(" ")}

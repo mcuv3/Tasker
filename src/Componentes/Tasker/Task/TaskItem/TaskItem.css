@@ -42,9 +42,6 @@
 .TaskItem > p:hover {
   font-weight: bold;
 }
-.TaskItem > input {
-  margin-top: 1em;
-}
 
 .tarea {
   cursor: pointer;
