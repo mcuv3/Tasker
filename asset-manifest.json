@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Tasker/static/css/main.0daf1589.chunk.css",
-    "main.js": "/Tasker/static/js/main.a9d76fa9.chunk.js",
-    "main.js.map": "/Tasker/static/js/main.a9d76fa9.chunk.js.map",
+    "main.js": "/Tasker/static/js/main.e4fbd9cf.chunk.js",
+    "main.js.map": "/Tasker/static/js/main.e4fbd9cf.chunk.js.map",
     "runtime-main.js": "/Tasker/static/js/runtime-main.c1ead824.js",
     "runtime-main.js.map": "/Tasker/static/js/runtime-main.c1ead824.js.map",
     "static/js/2.92c1e699.chunk.js": "/Tasker/static/js/2.92c1e699.chunk.js",
     "static/js/2.92c1e699.chunk.js.map": "/Tasker/static/js/2.92c1e699.chunk.js.map",
     "index.html": "/Tasker/index.html",
-    "precache-manifest.2659ba3f60d596c794e68427df4e9acd.js": "/Tasker/precache-manifest.2659ba3f60d596c794e68427df4e9acd.js",
+    "precache-manifest.e1cc47f05fd6b38918f293eb1c2f505e.js": "/Tasker/precache-manifest.e1cc47f05fd6b38918f293eb1c2f505e.js",
     "service-worker.js": "/Tasker/service-worker.js",
     "static/css/main.0daf1589.chunk.css.map": "/Tasker/static/css/main.0daf1589.chunk.css.map",
     "static/js/2.92c1e699.chunk.js.LICENSE.txt": "/Tasker/static/js/2.92c1e699.chunk.js.LICENSE.txt",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.c1ead824.js",
     "static/js/2.92c1e699.chunk.js",
     "static/css/main.0daf1589.chunk.css",
-    "static/js/main.a9d76fa9.chunk.js"
+    "static/js/main.e4fbd9cf.chunk.js"
   ]
 }
