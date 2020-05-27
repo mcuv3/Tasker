@@ -15,13 +15,12 @@ class ConfigTasker extends Component {
   };
 
   shouldComponentUpdate(nextProps, nextState) {
-    // if (
-    //   this.state.formatDate === nextState.formatDate &&
-    //   this.state.showCreate === nextState.showCreate
-    // )
-    //   return false;
-    // else
-    return true;
+    if (
+      this.state.date === nextState.date &&
+      this.state.showCreate === nextState.showCreate
+    )
+      return false;
+    else return true;
   }
 
   onChange = (date) => {
